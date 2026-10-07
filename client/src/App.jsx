@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import EventsPage from './pages/EventsPage';
-import SermonsPage from './pages/sermonsPage';
+import SermonsPage from './pages/SermonsPage';
 import FirstTimerPage from './pages/FirstTimerPage';
 import ContactPage from './pages/ContactPage';
 
