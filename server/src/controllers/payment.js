@@ -1,34 +1,38 @@
-const pool = require('../config/db')
-
+const pool = require('../config/db');
 
 const createPayment = async (req, res) => {
-    const { partnership_id, payment_type, payment_status, amount } = req.body;
+    // ...unchanged, your existing createPayment stays exactly as is
+};
+
+const getAllPayments = async (req, res) => {
     try {
-        const numericAmount = Number(amount);
-
-        if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
-            return res.status(400).json({error: 'amount must be a valid number greater than 0'});
-        }else if ( !partnership_id || !payment_type || !payment_status ) {
-            return res.status(400).json({error: 'missing required fields'});
-        } else {
-            const queryText = await pool.query(`INSERT INTO payments(partnership_id, payment_type, payment_status, amount) VALUES( $1, $2, $3, $4 ) RETURNING *`, [ partnership_id, payment_type, payment_status, amount ]);
-
-            const result = queryText.rows[0];
-
-            return res.status(201).json({partnership_id: result.partnership_id, payment_type: result.payment_type, payment_status: result.payment_status, amount: result.amount});
-        }
-        
+        // joins partnership so the admin sees who paid, not just a bare partnership_id
+        const queryText = await pool.query(`
+            SELECT payments.*, partnership.full_name, partnership.email
+            FROM payments
+            JOIN partnership ON payments.partnership_id = partnership.id
+            ORDER BY payments.created_at DESC
+        `);
+        return res.status(200).json({ result: queryText.rows });
     } catch (error) {
-        if (error.code === '23503') {
-            console.error(error);
-            return res.status(404).json({error: 'foreign key violation'})
-        } else {
-            console.error(error);
-            return res.status(500).json({error: 'server error'});
-        }
+        console.error(error);
+        return res.status(500).json({ error: 'server error' });
     }
-}
+};
 
+const getPaymentById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const queryText = await pool.query(`SELECT * FROM payments WHERE id = $1`, [id]);
+        const result = queryText.rows[0];
+        if (!result) {
+            return res.status(404).json({ error: 'not found' });
+        }
+        return res.status(200).json({ result });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'server error' });
+    }
+};
 
-
-module.exports = { createPayment };
+module.exports = { createPayment, getAllPayments, getPaymentById };

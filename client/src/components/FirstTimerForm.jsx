@@ -59,12 +59,14 @@ const FirstTimerForm = () => {
         }
     };
 
+    // Updated focus utility ring to support the official House on the Rock Blue theme
     const inputClass =
-        "w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/80 transition";
+        "w-full px-4 py-3 rounded-xl border border-gray-200 text-hotr-dark placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-hotr-blue/80 transition shadow-sm";
 
     return (
         <section className="max-w-xl mx-auto px-6 py-24">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-2">
+            {/* Header titles enhanced with official display font variables and corporate color layers */}
+            <h1 className="text-3xl md:text-4xl font-display font-bold text-hotr-blue text-center mb-2">
                 We'd Love to Meet You
             </h1>
             <p className="text-gray-500 text-center mb-10">
@@ -72,18 +74,18 @@ const FirstTimerForm = () => {
             </p>
 
             {status === 'success' && (
-                <div className="mb-6 p-4 rounded-xl bg-green-50 text-green-700 text-sm text-center">
+                <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 text-sm text-center font-medium">
                     Thanks! We've received your details and will reach out soon.
                 </div>
             )}
 
             {status === 'error' && (
-                <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 text-sm text-center">
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm text-center font-medium">
                     {errorMessage}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-hotr-blue/5 p-8 space-y-5">
                 <input
                     type="text"
                     name="name"
@@ -169,10 +171,11 @@ const FirstTimerForm = () => {
                     className={inputClass}
                 />
 
+                {/* Primary form action button themed using official hotr-blue styling properties */}
                 <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-hotr-blue text-white py-3 rounded-xl font-semibold hover:bg-hotr-blue/90 border border-transparent active:scale-[0.99] transition-all duration-200 shadow-md shadow-hotr-blue/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                     {submitting ? 'Submitting...' : 'Submit'}
                 </button>

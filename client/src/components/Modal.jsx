@@ -29,8 +29,9 @@ const Modal = ({ isOpen, onClose, title, children }) => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.25 }}
                 >
+                    {/* Backdrop updated to map directly to the rich House on the Rock dark core value */}
                     <motion.div
-                        className="absolute inset-0 bg-ink/70 backdrop-blur-sm"
+                        className="absolute inset-0 bg-hotr-dark/70 backdrop-blur-sm"
                         onClick={onClose}
                     />
 
@@ -38,7 +39,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="modal-title"
-                        className="relative bg-paper rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-8"
+                        className="relative bg-paper rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-8 border border-gray-100/10"
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -47,7 +48,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
                         <button
                             onClick={onClose}
                             aria-label="Close"
-                            className="absolute top-5 right-5 text-ink/50 hover:text-ink transition"
+                            className="absolute top-5 right-5 text-ink/50 hover:text-ink transition focus:outline-none focus:text-hotr-blue"
                         >
                             <X size={22} />
                         </button>

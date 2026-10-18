@@ -24,6 +24,14 @@ export const up = (pgm) => {
         created_at TIMESTAMP DEFAULT now()
         );
 
+        CREATE TABLE prayer_requests (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255),
+            phone_number VARCHAR(50),
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW()
+        );
+
         -- create the first timer table
         CREATE TYPE sex_type as ENUM('male', 'female');
         CREATE TYPE how_to_reach_out AS ENUM('phone call', 'whatsapp', 'email', 'home visit');
@@ -113,6 +121,7 @@ export const down = (pgm) => {
         DROP TABLE IF EXISTS events;
         DROP TABLE IF EXISTS first_timer;
         DROP TABLE IF EXISTS contact;
+        DROP TABLE IF EXISTS prayer_requests;
 
         -- drop custom data types 
         DROP TYPE IF EXISTS sex_type;

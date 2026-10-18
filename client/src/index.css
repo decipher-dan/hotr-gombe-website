@@ -6,7 +6,16 @@
     --color-ink: #0F1115;
     --color-paper: #FAFAF8;
     --color-gold: #C9A24B;
+
+    /* House on the Rock Official Brand Colors */
+    --color-hotr-blue: #1D4FC4;
+    --color-hotr-dark: #0F172A;
+    --color-hotr-green: #93BF20;
+    --color-hotr-light: #F8FAFC;
 }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 body {
     font-family: var(--font-sans);

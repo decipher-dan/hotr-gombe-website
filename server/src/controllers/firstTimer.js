@@ -19,6 +19,33 @@ const createFirstTimer = async (req, res) => {
     }
 }
 
+const getAllFirstTimer = async (req, res) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM first_timer ORDER BY created_at DESC'
+        );
+        return res.status(200).json({ result: result.rows });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'server error' });
+    }
+};
 
+const getFirstTimerById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query(
+            'SELECT * FROM first_timer WHERE id = $1',
+            [id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'not found' });
+        }
+        return res.status(200).json({ result: result.rows[0] });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'server error' });
+    }
+};
 
-module.exports = {createFirstTimer}
+module.exports = { createFirstTimer, getAllFirstTimer, getFirstTimerById };
